@@ -47,7 +47,7 @@ python detect_blinks.py --video VID_20210426_220221_01.mp4
 To install the docker image use the following command:
 
 ```sh
-docker pull mhegazy15/eyeblink_101:eye_v2.
+docker pull mhegazy15/eyeblink_101:eye_v2
 ```
 
 This will create the eye blink detection image and pull in the necessary dependencies.
