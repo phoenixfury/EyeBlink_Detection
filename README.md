@@ -76,3 +76,4 @@ docker run  -it --rm --privileged -e DISPLAY=$IP:0 --device=/dev/video0:/dev/vid
 ```sh
 xhost -
 ```
+![test sample](https://github.com/phoenixfury/EyeBlink_Detection/blob/master/Sample/outpy.gif)
