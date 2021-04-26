@@ -24,7 +24,7 @@ def eye_aspect_ratio(eye):
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("-p", "--shape-predictor", required=True,
+ap.add_argument("-p", "--shape-predictor", required=False,
 	help="path to facial landmark predictor")
 ap.add_argument("-v", "--video", type=str, default="",
 	help="path to input video file")
@@ -45,8 +45,8 @@ SLEEP_COUNTER = 0
 # the facial landmark predictor
 print("[INFO] loading facial landmark predictor...")
 detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(args["shape_predictor"])
-
+#predictor = dlib.shape_predictor(args["shape_predictor"])
+predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
 # grab the indexes of the facial landmarks for the left and
 # right eye, respectively
@@ -55,11 +55,12 @@ predictor = dlib.shape_predictor(args["shape_predictor"])
 
 # start the video stream thread
 print("[INFO] starting video stream thread...")
-# vs = FileVideoStream(args["video"]).start()
-# fileStream = True
-vs = VideoStream(src=0).start()
-# vs = VideoStream(usePiCamera=True).start()
-fileStream = False
+if args["video"]:
+    vs = FileVideoStream(args["video"]).start()
+    fileStream = True
+else:
+    vs = VideoStream(src=-1).start()
+    fileStream = False
 time.sleep(1.0)
 
 # loop over frames from the video stream
@@ -106,7 +107,7 @@ while True:
             SLEEP_COUNTER += 1 
             COUNTER += 1
             if SLEEP_COUNTER >= EYE_SLEEP_CONSEC_FRAMES:
-                cv2.putText(frame, "ALERT", (250, 50),
+                cv2.putText(frame, "ALERT", (125, 50),
                     cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
             
 		# otherwise, the eye aspect ratio is not below the blink
@@ -124,9 +125,9 @@ while True:
         # draw the total number of blinks on the frame along with
         # the computed eye aspect ratio for the frame
         cv2.putText(frame, "Blinks: {}".format(TOTAL), (10, 30),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         cv2.putText(frame, "EAR: {:.2f}".format(ear), (300, 30),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
 
     # show the frame
     cv2.imshow("Frame", frame)

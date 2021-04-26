@@ -1,0 +1,6 @@
+cmake==3.18.4.post1
+dlib==19.22.0
+imutils==0.5.4
+numpy==1.19.5
+scipy==1.5.4
+opencv-python==4.5.1.48
