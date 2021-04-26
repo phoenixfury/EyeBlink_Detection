@@ -11,6 +11,9 @@ To use the live camera use the following command while inside the folder of the 
 $python detect_blinks.py
 
 To use a video file use the following command:
+$python detect_blinks.py --video "Path to the file"
+
+To use the test video file use the following command:
 $python detect_blinks.py --video VID_20210426_220221_01.mp4
 
 To install the docker image use the following command:
